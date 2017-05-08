@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SendTest", "SendTest\SendTest.csproj", "{04680DC5-DCB7-4378-9797-5E4F5E9BBCB8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReceiveTest", "ReceiveTest\ReceiveTest.csproj", "{3BEBF7FB-1FE5-4B68-A31D-39A71DC5ACA3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudTest", "CloudTest\CloudTest.csproj", "{C5FB2CDD-4BAD-4C4E-9F32-2AACD6CB0538}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MQTTClient", "MQTTClient\MQTTClient.csproj", "{9661CA4B-E59D-4617-BF2B-561A2FE85CD6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release_Delay_Sign|Any CPU = Release_Delay_Sign|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{04680DC5-DCB7-4378-9797-5E4F5E9BBCB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04680DC5-DCB7-4378-9797-5E4F5E9BBCB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04680DC5-DCB7-4378-9797-5E4F5E9BBCB8}.Release_Delay_Sign|Any CPU.ActiveCfg = Release|Any CPU
+		{04680DC5-DCB7-4378-9797-5E4F5E9BBCB8}.Release_Delay_Sign|Any CPU.Build.0 = Release|Any CPU
+		{04680DC5-DCB7-4378-9797-5E4F5E9BBCB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04680DC5-DCB7-4378-9797-5E4F5E9BBCB8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3BEBF7FB-1FE5-4B68-A31D-39A71DC5ACA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3BEBF7FB-1FE5-4B68-A31D-39A71DC5ACA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3BEBF7FB-1FE5-4B68-A31D-39A71DC5ACA3}.Release_Delay_Sign|Any CPU.ActiveCfg = Release|Any CPU
+		{3BEBF7FB-1FE5-4B68-A31D-39A71DC5ACA3}.Release_Delay_Sign|Any CPU.Build.0 = Release|Any CPU
+		{3BEBF7FB-1FE5-4B68-A31D-39A71DC5ACA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3BEBF7FB-1FE5-4B68-A31D-39A71DC5ACA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5FB2CDD-4BAD-4C4E-9F32-2AACD6CB0538}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5FB2CDD-4BAD-4C4E-9F32-2AACD6CB0538}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5FB2CDD-4BAD-4C4E-9F32-2AACD6CB0538}.Release_Delay_Sign|Any CPU.ActiveCfg = Release|Any CPU
+		{C5FB2CDD-4BAD-4C4E-9F32-2AACD6CB0538}.Release_Delay_Sign|Any CPU.Build.0 = Release|Any CPU
+		{C5FB2CDD-4BAD-4C4E-9F32-2AACD6CB0538}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5FB2CDD-4BAD-4C4E-9F32-2AACD6CB0538}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9661CA4B-E59D-4617-BF2B-561A2FE85CD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9661CA4B-E59D-4617-BF2B-561A2FE85CD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9661CA4B-E59D-4617-BF2B-561A2FE85CD6}.Release_Delay_Sign|Any CPU.ActiveCfg = Release|Any CPU
+		{9661CA4B-E59D-4617-BF2B-561A2FE85CD6}.Release_Delay_Sign|Any CPU.Build.0 = Release|Any CPU
+		{9661CA4B-E59D-4617-BF2B-561A2FE85CD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9661CA4B-E59D-4617-BF2B-561A2FE85CD6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.TransientFaultHandling.6.0.1304.0\lib\portable-net45+win+wp8
+	EndGlobalSection
+EndGlobal
