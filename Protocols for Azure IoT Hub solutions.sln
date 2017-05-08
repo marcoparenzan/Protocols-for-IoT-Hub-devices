@@ -11,6 +11,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CloudTest", "CloudTest\Clou
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MQTTClient", "MQTTClient\MQTTClient.csproj", "{9661CA4B-E59D-4617-BF2B-561A2FE85CD6}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LECTURE 2", "LECTURE 2", "{359FD92A-DD4F-496C-BE50-782B53447E45}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LECTURE 3", "LECTURE 3", "{3D56B9E0-CC0D-48AB-9213-D5FC4A6F1973}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AMQPClient", "AMQPClient\AMQPClient.csproj", "{1CD8E47F-83A7-4F8E-BD0E-537063286E10}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,9 +48,22 @@ Global
 		{9661CA4B-E59D-4617-BF2B-561A2FE85CD6}.Release_Delay_Sign|Any CPU.Build.0 = Release|Any CPU
 		{9661CA4B-E59D-4617-BF2B-561A2FE85CD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9661CA4B-E59D-4617-BF2B-561A2FE85CD6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1CD8E47F-83A7-4F8E-BD0E-537063286E10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CD8E47F-83A7-4F8E-BD0E-537063286E10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CD8E47F-83A7-4F8E-BD0E-537063286E10}.Release_Delay_Sign|Any CPU.ActiveCfg = Release|Any CPU
+		{1CD8E47F-83A7-4F8E-BD0E-537063286E10}.Release_Delay_Sign|Any CPU.Build.0 = Release|Any CPU
+		{1CD8E47F-83A7-4F8E-BD0E-537063286E10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CD8E47F-83A7-4F8E-BD0E-537063286E10}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{04680DC5-DCB7-4378-9797-5E4F5E9BBCB8} = {359FD92A-DD4F-496C-BE50-782B53447E45}
+		{3BEBF7FB-1FE5-4B68-A31D-39A71DC5ACA3} = {359FD92A-DD4F-496C-BE50-782B53447E45}
+		{C5FB2CDD-4BAD-4C4E-9F32-2AACD6CB0538} = {359FD92A-DD4F-496C-BE50-782B53447E45}
+		{9661CA4B-E59D-4617-BF2B-561A2FE85CD6} = {3D56B9E0-CC0D-48AB-9213-D5FC4A6F1973}
+		{1CD8E47F-83A7-4F8E-BD0E-537063286E10} = {3D56B9E0-CC0D-48AB-9213-D5FC4A6F1973}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.TransientFaultHandling.6.0.1304.0\lib\portable-net45+win+wp8
