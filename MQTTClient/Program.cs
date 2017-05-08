@@ -28,7 +28,7 @@ namespace MQTTClient
             var clientId = deviceId;
             var resource = $"{hostName}/{deviceId}";
             var username = $"{resource}/api-version=2016-11-14";
-            var topic = $"/devices/{deviceId}/messages/events";
+            var topic = $"devices/{deviceId}/messages/events/";
             var password = Generate(resource, sharedAccessKey, 3600);
             password = "SharedAccessSignature sr=processiot.azure-devices.net%2Fdevices%2Fdev1&sig=UkH%2BNsqPP%2FGa83WTJmlH%2FqrmPzHr4tF2PB1buPcYJM0%3D&se=1494285321";
             var client = new MqttClient(hostName, 8883, true, MqttSslProtocols.TLSv1_2,
