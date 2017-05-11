@@ -1,6 +1,8 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Security;
@@ -21,28 +23,29 @@ namespace MQTTClient
 
         static async Task MainAsync(string[] args)
         {
-            var hostName = $"processiot.azure-devices.net";
+            const int QoS_AT_MOST_ONCE = 1;
+
+            var iotHubName = "protocoliot";
+            var hostName = $"{iotHubName}.azure-devices.net";
             var port = 8883;
             var deviceId = "dev1";
-            var sharedAccessKey = "NNE/DuQF0pIvlmcqs2a86jQOc/NypXUTNnkmzI/Q4TI=";
+            var sharedAccessKey = "MjMB3L8rDRUgpoLy/M0fzghgTS25CRawiE3+de+G9TI=";
 
             var clientId = deviceId;
-            var resource = $"{hostName}/{deviceId}";
-            var username = $"{resource}/api-version=2016-11-14";
-            var topic = $"devices/{deviceId}/messages/events/";
-            var password = Generate(resource, sharedAccessKey, 3600);
-            password = "SharedAccessSignature sr=processiot.azure-devices.net%2Fdevices%2Fdev1&sig=UkH%2BNsqPP%2FGa83WTJmlH%2FqrmPzHr4tF2PB1buPcYJM0%3D&se=1494285321";
-            var client = new MqttClient(hostName, port, true, MqttSslProtocols.TLSv1_2,
-                null,
-                null
-            );
+            var resourceId = $"{hostName}/devices/{deviceId}";
+            var username = $"{hostName}/{deviceId}/api-version=2016-11-14";
+            var devicePublishTopic = $"devices/{deviceId}/messages/events/";
+            var deviceSubscribeTopic = $"devices/{deviceId}/messages/devicebound/#";
+            var password = CreateShareAccessSignature(resourceId, sharedAccessKey);
+
+            var client = new MqttClient(hostName, port, true, MqttSslProtocols.TLSv1_2, null, null);
             client.MqttMsgPublished += (s, e) =>
             {
-                WriteLine($"Hello {e.MessageId}");
+                WriteLine($"Sent MessageId={e.MessageId}");
             };
             client.MqttMsgPublishReceived += (s, e) =>
             {
-                WriteLine($"Hello {e.Message}");
+                WriteLine($"Topic received {e.Topic}: {Encoding.UTF8.GetString(e.Message)}");
             };
             var id = client.Connect(clientId, username, password);
 
@@ -53,35 +56,40 @@ namespace MQTTClient
                 Index = 1,
                 DateTime = DateTimeOffset.Now.ToString()
             };
-            var eventJson = JsonConvert.SerializeObject(eventObject);
-            var eventBytes = Encoding.UTF8.GetBytes(eventJson);
-            var result = client.Publish(topic, eventBytes);
+
+            // reference to Bytes to send
+            byte[] eventBytes = null;
+
+            // JSON
+            //var eventJson = JsonConvert.SerializeObject(eventObject);
+            //eventBytes = Encoding.UTF8.GetBytes(eventJson);
+
+            //// Protobuf
+            var eventStream = new MemoryStream();
+            ProtoBuf.Serializer.Serialize(eventStream, eventObject);
+            eventBytes = eventStream.ToArray();
+
+            var result = client.Publish(devicePublishTopic, eventBytes, QoS_AT_MOST_ONCE, false);
+            client.Subscribe(new string[] { deviceSubscribeTopic }, new byte[] { QoS_AT_MOST_ONCE });
+            ReadLine();
             client.Disconnect();
         }
 
+        private static readonly DateTime EpochTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
 
-        static string Generate(string resourceUri, string signingKey, int expiresInSeconds = 0)
+        private static string CreateShareAccessSignature(string resourceUri, string key, int timeToLive = 86400)
         {
-            // Set expiration in seconds
-            var expires = Timestamp()+ expiresInSeconds;
-            var toSign = $"{Uri.EscapeDataString(resourceUri)}\n{expires}";
-            byte[] bytesToSign = Encoding.UTF8.GetBytes(toSign);
+            var sinceEpoch = DateTime.UtcNow - new DateTime(1970, 1, 1);
+            var expiry = Convert.ToString((int)sinceEpoch.TotalSeconds + timeToLive);
+            string text2 = WebUtility.UrlEncode(resourceUri);
 
-            // Use crypto
-            var hmacsha256 = new HMACSHA256(Encoding.UTF8.GetBytes(signingKey));
-            var hash = hmacsha256.ComputeHash(bytesToSign);
-            var base64UriEncoded = Uri.EscapeDataString(Convert.ToBase64String(hash));
+            string value;
+            using (HMACSHA256 hMACSHA = new HMACSHA256(Convert.FromBase64String(key)))
+            {
+                value = Convert.ToBase64String(hMACSHA.ComputeHash(Encoding.UTF8.GetBytes($"{text2}\n{expiry}")));
+            }
 
-            // Construct autorization string
-            var token = $"SharedAccessSignature sr={Uri.EscapeDataString(resourceUri)}&sig={base64UriEncoded}&se={expires}";
-            return token;
-        }
-
-        public static long Timestamp()
-        {
-            DateTime origin = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
-            TimeSpan diff = DateTime.Now.ToUniversalTime() - origin;
-            return (int) Math.Floor(diff.TotalSeconds);
+            return $"SharedAccessSignature sr={text2}&sig={WebUtility.UrlEncode(value)}&se={expiry}";
         }
     }
 }

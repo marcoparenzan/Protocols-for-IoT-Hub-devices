@@ -12,19 +12,6 @@ using static System.Console;
 
 namespace ProtocolTest
 {
-    [ProtoContract]
-    public class Event
-    {
-        [ProtoMember(1)]
-        public string DeviceId { get; set; }
-        [ProtoMember(2)]
-        public double Data { get; set; }
-        [ProtoMember(3)]
-        public int Index { get; set; }
-        [ProtoMember(4)]
-        public DateTime DateTime { get; set; }
-    }
-
     class Program
     {
         static void Main(string[] args)
@@ -38,10 +25,9 @@ namespace ProtocolTest
 
             var totalTime = 0.0;
 
-            ProtoBuf.Serializer.PrepareSerializer<Event>();
             for (var i = 1; i<=100; i++)
             {
-                var eventObject = new Event
+                var eventObject = new
                 {
                     DeviceId = "dev1",
                     Data = value,
@@ -49,12 +35,9 @@ namespace ProtocolTest
                     DateTime = DateTime.Now
                 };
 
-                var serializationStream = new MemoryStream();
-                ProtoBuf.Serializer.Serialize(serializationStream, eventObject);
 
                 var eventJson = JsonConvert.SerializeObject(eventObject);
-                //var eventBytes = Encoding.UTF8.GetBytes(eventJson);
-                var eventBytes = serializationStream.ToArray();
+                var eventBytes = Encoding.UTF8.GetBytes(eventJson);
                 var eventMessage = new Message(eventBytes);
                 
                 WriteLine($"Sending {i}th event long {eventBytes.Length}: {eventJson}");
